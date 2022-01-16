@@ -6,18 +6,21 @@
 //
 
 #include <iostream>
-#include <FL/Fl.H>
-#include <FL/Fl_Window.H>
-#include <FL/Fl_Box.H>
+#include "Simple_window.hpp"
+#include "Graph.hpp"
 
 int main(int argc, const char * argv[]) {
-    Fl_Window *window = new Fl_Window(340,180);
-    Fl_Box *box = new Fl_Box(20,40,300,100,"Hello, World!");
-    box->box(FL_UP_BOX);
-    box->labelfont(FL_BOLD+FL_ITALIC);
-    box->labelsize(36);
-    box->labeltype(FL_SHADOW_LABEL);
-    window->end();
-    window->show(argc, const_cast<char**>(argv));
-    return Fl::run();
+    // use your simple wrapper
+    using namespace Graph_lib;
+    
+    Point top_left{100, 100};
+    Simple_window win{top_left, 600, 400, "Canvas"};
+    
+    Line line{{0,0}, {200,200}};
+    
+    // put a shape (line) on window
+    win.attach(line);
+    win.wait_for_button();
+    
+    return 0;
 }
