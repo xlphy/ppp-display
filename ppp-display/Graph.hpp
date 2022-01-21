@@ -94,6 +94,8 @@ public:
     // points
     Point point(int i) const {return points[i];}
     int number_of_points() const {return int(points.size());}
+    Point first_point() const {return points[0];}
+    Point last_point() const {return points[number_of_points()-1];}
     
     virtual ~Shape(){}
     
@@ -152,6 +154,22 @@ private:
 };
 
 
+// Open polyline: open sequence of lines
+struct Open_polyline : Shape {
+    void add(Point p) {Shape::add(p);}
+    void draw_lines() const;
+};
+
+// Closed polyline: closed sequence of lines
+struct Closed_polyline : Open_polyline {
+    void draw_lines() const;
+};
+
+// Polygon: closed sequence of non-intersecting lines
+struct Polygon : Closed_polyline {
+    void add(Point p);
+    void draw_lines() const;
+};
 
 
 }

@@ -33,8 +33,16 @@ int main(int argc, const char * argv[]) {
     
     grid.set_color(Color::blue);
     grid.set_style(Line_style::dash);
+    
+    Rectangle rect({10, 20}, 200, 100);
+    rect.set_color(Color::black);
+    rect.set_style(Line_style(Line_style::solid, 2));
+    rect.set_fill_color(Color::blue);
+    
+    
     // put a shape (line) on window
     win.attach(grid);
+    win.attach(rect);
     win.wait_for_button();
     
     return 0;
