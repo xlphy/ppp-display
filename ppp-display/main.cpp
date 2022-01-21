@@ -39,10 +39,22 @@ int main(int argc, const char * argv[]) {
     rect.set_style(Line_style(Line_style::solid, 2));
     rect.set_fill_color(Color::blue);
     
-    
     // put a shape (line) on window
+    win.attach(lines);
     win.attach(grid);
     win.attach(rect);
+    
+    // color palette
+    Vector_ref<Rectangle> vr;
+    int x0 = 250, y0 = 50;
+    for(int i=0; i < 16; ++i)
+        for(int j=0; j < 16; ++j){
+            vr.push_back(new Rectangle{Point{x0+i*20, y0+j*20}, 20, 20});
+            vr[vr.size() - 1].set_fill_color(Color(i*16+j));
+            win.attach(vr[vr.size()-1]);
+        }
+    
+    // draw and display
     win.wait_for_button();
     
     return 0;

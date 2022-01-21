@@ -14,6 +14,41 @@
 
 namespace Graph_lib{
 
+//Vector_ref, store both named and unnamed objects
+template<class T>
+class Vector_ref {
+public:
+    Vector_ref(){}
+    Vector_ref(T& a) {push_back(a);}
+    Vector_ref(T* a, T* b = nullptr, T* c = nullptr, T* d = nullptr){
+        if(a) push_back(a);
+        if(b) push_back(b);
+        if(c) push_back(c);
+        if(d) push_back(d);
+    }
+    
+    ~Vector_ref(){
+        // only delete owned pointers
+        for(int i = 0; i < owned.size(); ++i)
+            delete owned[i];
+    }
+    
+    // T& not owned objects, save a copy of its pointer
+    void push_back(T& s){ v.push_back(&s);}
+    // T* owned objects, save a copy of its pointer and responsible for its lifetime
+    void push_back(T* p){v.push_back(p); owned.push_back(p);}
+    
+    // access reference only not pointers
+    T& operator[](int i) {return *v[i];}
+    const T& operator[](int i) const {return *v[i];}
+    
+    int size() const {return v.size();}
+private:
+    std::vector<T*> v;
+    std::vector<T*> owned;
+};
+
+
 
 // Color is the type we use to represent color, use Color::red
 struct Color{
