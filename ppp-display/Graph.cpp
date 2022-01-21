@@ -207,6 +207,93 @@ void Ellipse::draw_lines() const
         fl_arc(point(0).x, point(0).y, w+w, h+h, 0, 360);
 }
 
+void Text::draw_lines() const
+{
+    int old_fnt = fl_font();
+    int old_sz = fl_size();
+    fl_font(fnt.as_int(), fnt_sz);
+    fl_draw(lab.c_str(), point(0).x, point(0).y);
+    fl_font(old_fnt, old_sz); // reset to default
+}
+
+Axis::Axis(Orientation d, Point xy, int length, int n, std::string lab):
+    label(Point(0, 0), lab)
+{
+    if (length<0)
+        throw std::runtime_error("bad axis length!");
+    switch(d){
+        case Axis::x:
+        {
+            // two end points of axis line, left -> right
+            Shape::add(xy);
+            Shape::add(Point(xy.x+length, xy.y));
+            // add notches
+            if(n>1){
+                int dist = length / n;
+                int x = xy.x + dist;
+                for (int i=0; i<n; ++i){
+                    notches.add(Point(x, xy.y), Point(x, xy.y-5)); // tick length = 5
+                    x += dist;
+                }
+            }
+            // label under the line
+            label.move(xy.x+length/3, xy.y+20);
+            break;
+        }
+        case Axis::y:
+        {
+            // two end points of axis line, bottom -> up
+            Shape::add(xy);
+            Shape::add(Point(xy.x, xy.y-length));
+            // add notches
+            if(n>1){
+                int dist = length / n;
+                int y = xy.y - dist;
+                for(int i=0; i<n; ++i){
+                    notches.add(Point(xy.x, y), Point(xy.x+5, y));
+                    y -= dist;
+                }
+            }
+            // label at top
+            label.move(xy.x-10, xy.y-length-10);
+            break;
+        }
+        case Axis::z:
+        {
+            throw std::runtime_error("z axis not implemented!");
+        }
+    }
+    
+}
+
+void Axis::draw_lines() const
+{
+    Shape::draw_lines();
+    notches.draw();
+    label.draw();
+}
+
+void Axis::set_color(Color c)
+{
+    // set same color
+    Shape::set_color(c);
+    notches.set_color(c);
+    label.set_color(c);
+}
+
+void Axis::move(int dx, int dy)
+{
+    // move together
+    Shape::move(dx, dy);
+    notches.move(dx, dy);
+    label.move(dx, dy);
+}
+
+
+
+
+
+
 
 
 }

@@ -190,7 +190,6 @@ private:
     int w;  // width
 };
 
-
 // Open polyline: open sequence of lines
 struct Open_polyline : Shape {
     void add(Point p) {Shape::add(p);}
@@ -288,7 +287,69 @@ private:
     int h;
 };
 
+// Font used by Text
+class Font{
+public:
+    enum Font_type {
+        helvetica=FL_HELVETICA,
+        helvetica_bold=FL_HELVETICA_BOLD,
+        helvetica_italic=FL_HELVETICA_ITALIC,
+        helvetica_bold_italic=FL_HELVETICA_BOLD_ITALIC,
+        courier=FL_COURIER,
+        courier_bold=FL_COURIER_BOLD,
+        courier_italic=FL_COURIER_ITALIC,
+        courier_bold_italic=FL_COURIER_BOLD_ITALIC,
+        times=FL_TIMES,
+        times_bold=FL_TIMES_BOLD,
+        times_italic=FL_TIMES_ITALIC,
+        times_bold_italic=FL_TIMES_BOLD_ITALIC,
+        symbol=FL_SYMBOL,
+        screen=FL_SCREEN,
+        screen_bold=FL_SCREEN_BOLD,
+        zapf_dingbats=FL_ZAPF_DINGBATS
+    };
+    
+    Font(Font_type ff): f(ff) {}
+    Font(int ff): f(ff) {}
+    
+    int as_int() const {return f;}
+private:
+    int f;
+};
 
+// Text: position point, label, font and font size
+struct Text : Shape {
+    // the point is the bottom left of the first letter
+    Text(Point x, const std::string& s): lab(s), fnt(fl_font()), fnt_sz(fl_size()){add(x);}
+    
+    void draw_lines() const override;
+    
+    void set_label(const std::string& s){lab = s;}
+    std::string label() const {return lab;}
+    void set_font(Font f) {fnt = f;}
+    Font font() const {return Font(fnt);}
+    void set_font_size(int s){fnt_sz=s;}
+    int font_size() const {return fnt_sz;}
+    
+private:
+    std::string lab;
+    Font fnt;
+    int fnt_sz;
+};
+
+// Axis: axis line (two end points), notches (a set of lines, ticks), label(Text)
+struct Axis: Shape {
+    enum Orientation {x, y, z};
+    Axis(Orientation d, Point xy, int length,
+         int number_of_notches=0, std::string label="");
+    
+    void draw_lines() const override;
+    void move(int dx, int dy) override;
+    void set_color(Color c);
+    
+    Text label;
+    Lines notches;
+};
 
 
 }

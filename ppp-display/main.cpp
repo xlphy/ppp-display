@@ -79,6 +79,12 @@ int main(int argc, const char * argv[]) {
     // start a new window
     Simple_window win2{top_left, 1200, 800, "Canvas2"};
     // a new set of shapes to display
+    Text t{{10, 20}, "This is a text"};
+    t.set_color(Color::blue);
+    t.set_font(Font::helvetica_bold_italic);
+    t.set_font_size(20);
+    win2.attach(t);
+    
     win2.wait_for_button();
     
     return 0;
