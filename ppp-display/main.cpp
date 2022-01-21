@@ -16,10 +16,25 @@ int main(int argc, const char * argv[]) {
     Point top_left{100, 100};
     Simple_window win{top_left, 600, 400, "Canvas"};
     
+    //construct concrete shapes
     Line line{{0,0}, {200,200}};
+    Lines lines;
+    lines.add(line);
+    lines.add({0, 200}, {200,0});
     
+    int x_size = win.x_max();
+    int y_size = win.y_max();
+    int dx = 80, dy = 40;
+    Lines grid;
+    for(int x = dx; x < x_size; x += dx)
+        grid.add({x, 0}, {x, y_size});
+    for(int y = dy; y < y_size; y += dy)
+        grid.add({0, y}, {x_size, y});
+    
+    grid.set_color(Color::blue);
+    grid.set_style(Line_style::dash);
     // put a shape (line) on window
-    win.attach(line);
+    win.attach(grid);
     win.wait_for_button();
     
     return 0;
