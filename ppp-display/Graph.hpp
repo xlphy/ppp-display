@@ -9,6 +9,8 @@
 #define Graph_hpp
 
 #include <vector>
+#include <string>
+#include <cmath>
 #include <FL/fl_draw.H>
 #include "Point.h"
 
@@ -192,19 +194,101 @@ private:
 // Open polyline: open sequence of lines
 struct Open_polyline : Shape {
     void add(Point p) {Shape::add(p);}
-    void draw_lines() const;
+    void draw_lines() const override;
 };
 
 // Closed polyline: closed sequence of lines
 struct Closed_polyline : Open_polyline {
-    void draw_lines() const;
+    void draw_lines() const override;
 };
 
 // Polygon: closed sequence of non-intersecting lines
 struct Polygon : Closed_polyline {
     void add(Point p);
-    void draw_lines() const;
+    void draw_lines() const override;
 };
+
+// Marked polyline: is a Open_polyline with marks
+struct Marked_polyline: Open_polyline {
+    Marked_polyline(const std::string& m) : mark(m) {}
+    void draw_lines() const override;
+private:
+    std::string mark;
+};
+
+// Marks: is a Marked_polyline without lines
+struct Marks: Marked_polyline {
+    Marks(const std::string& m): Marked_polyline(m){
+        set_color(Color(Color::invisible));
+    }
+};
+
+// Mark: is a Marks with one point and one char
+struct Mark: Marks{
+    Mark(Point xy, char c): Marks(std::string(1, c)){
+        add(xy);
+    }
+};
+
+
+// Circle: center and radius
+struct Circle : Shape{
+    Circle(Point p, int rr);
+    
+    void draw_lines() const override;
+    
+    Point center() const;
+    int radius() const {return r;}
+    void set_radius(int rr) {r=rr;}
+private:
+    int r;
+};
+
+// Ellipse: center, min and max distance from center
+struct Ellipse: Shape {
+    Ellipse(Point p, int ww, int hh): w(ww), h(hh){
+        add(Point(p.x-w, p.y-h)); // store top-left point
+    }
+    
+    void draw_lines() const override;
+    
+    Point center() const {return Point(point(0).x+w, point(0).y+h);}
+    Point focus1() const {
+        Point c=center();
+        if(w >= h)
+            return Point(c.x + int(std::sqrt(double(w*w-h*h))), c.y);
+        else
+            return Point(c.x, c.y + int(std::sqrt(double(h*h-w*w))));
+    }
+    Point focus2() const {
+        Point c=center();
+        if(w >= h)
+            return Point(c.x - int(std::sqrt(double(w*w-h*h))), c.y);
+        else
+            return Point(c.x, c.y - int(std::sqrt(double(h*h-w*w))));
+    }
+    
+    void set_major(int ww) {
+        Point c=center();
+        // maintain the center point
+        set_point(0, Point(c.x-ww, c.y-h));
+        w=ww;
+    }
+    int major() const {return w;}
+    void set_minor(int hh) {
+        Point c= center();
+        // maintain the center point
+        set_point(0, Point(c.x-w, c.y-hh));
+        h=hh;
+    }
+    int minor() const {return h;}
+    
+private:
+    int w;
+    int h;
+};
+
+
 
 
 }

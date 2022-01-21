@@ -168,6 +168,45 @@ void Polygon::draw_lines() const
     Closed_polyline::draw_lines();
 }
 
+// draw a fixed-size (dx * dy) mark(char)
+void draw_mark(Point xy, char c)
+{
+    static const int dx = 4;
+    static const int dy = 4;
+
+    std::string m(1,c);
+    fl_draw(m.c_str(),xy.x-dx,xy.y+dy);
+}
+
+void Marked_polyline::draw_lines() const
+{
+    Open_polyline::draw_lines();
+    for(int i=0; i<number_of_points(); ++i)
+        draw_mark(point(i), mark[i % mark.size()]); // cycle through mark which is a string
+}
+
+
+// Circle
+Circle::Circle(Point p, int rr): r(rr)
+{
+    // store top-left corner, but p is center point
+    add(Point(p.x-r, p.y-r));
+}
+
+Point Circle::center() const{return Point(point(0).x + r, point(0).y + r);}
+
+void Circle::draw_lines() const
+{
+    if(color().visibility())
+        fl_arc(point(0).x, point(0).y, r+r, r+r, 0, 360);
+}
+
+void Ellipse::draw_lines() const
+{
+    if(color().visibility())
+        fl_arc(point(0).x, point(0).y, w+w, h+h, 0, 360);
+}
+
 
 
 }

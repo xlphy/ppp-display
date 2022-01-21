@@ -54,8 +54,32 @@ int main(int argc, const char * argv[]) {
             win.attach(vr[vr.size()-1]);
         }
     
+    // marked polylines
+    Marked_polyline mp{"abcd"};
+    mp.add({50, 380});
+    mp.add({70, 350});
+    mp.add({100, 320});
+    mp.add({150, 300});
+    win.attach(mp);
+    
+    // circle and ellipse
+    Circle c = Circle({100, 250}, 50);
+    c.set_color(Color::red);
+    c.set_style(Line_style(Line_style::solid, 2));
+    
+    Ellipse e = Ellipse({200, 300}, 100, 50);
+    e.set_color(Color::black);
+    e.set_style(Line_style(Line_style::dash, 2));
+    win.attach(c);
+    win.attach(e);
+    
     // draw and display
     win.wait_for_button();
+    
+    // start a new window
+    Simple_window win2{top_left, 1200, 800, "Canvas2"};
+    // a new set of shapes to display
+    win2.wait_for_button();
     
     return 0;
 }
