@@ -351,6 +351,39 @@ struct Axis: Shape {
     Lines notches;
 };
 
+typedef double Fct(double); // a short-hand for function type
+
+// Function: is also a Shape
+struct Function : Shape {
+    // the function parameters are not stored
+    Function(Fct f, double r1, double r2, Point orig,
+             int count=100, double xscale=25, double yscale=25);
+};
+
+// Image: is also a Shape, external image file
+struct Suffix {
+    enum Encoding {none, jpg, gif};
+};
+
+Suffix::Encoding get_encoding(const std::string& s);
+
+struct Image : Shape {
+    Image(Point xy, std::string file_name, Suffix::Encoding e= Suffix::Encoding::none);
+    ~Image(){delete p;}
+    void draw_lines() const override;
+    void set_mask(Point xy, int ww, int hh){w=hh; h=hh; cx=xy.x; cy=xy.y;}
+private:
+    int w,h; // define "masking box" within image relative to position (cx,cy)
+    int cx, cy;
+    Fl_Image* p;
+    Text fn;
+};
+
+struct Bad_image : Fl_Image{
+    Bad_image(int h, int w): Fl_Image(h,w,0){}
+    void draw(int x, int y, int, int, int, int) {draw_empty(x, y);}
+};
+
 
 }
 

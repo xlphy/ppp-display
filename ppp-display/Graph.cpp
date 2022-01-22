@@ -5,6 +5,9 @@
 //  Created by Xin Li on 1/16/22.
 //
 
+#include <fstream>
+#include <FL/Fl_GIF_Image.H>
+#include <FL/Fl_JPEG_Image.H>
 #include "Graph.hpp"
 
 namespace Graph_lib {
@@ -289,11 +292,88 @@ void Axis::move(int dx, int dy)
     label.move(dx, dy);
 }
 
+Function::Function(Fct f, double r1, double r2, Point xy,
+                   int count, double xscale, double yscale)
+// graph f(x) for x in [r1:r2) using count line segments with (0,0) displayed at xy
+// x coordinates are scaled by xscale and y coordinates scaled by yscale
+// 1 unit of x = xscale pixels, 1 unit of y = yscale pixels
+{
+    if (r2-r1<=0) throw std::runtime_error("bad graphing range");
+    if (count<=0) throw std::runtime_error("non-positive graphing count");
+    double dist = (r2 - r1) / count;
+    double r = r1;
+    for(int i=0; i<count; ++i){
+        add(Point(xy.x + int(r*xscale), xy.y - int(f(r)*yscale)));
+        r += dist;
+    }
+}
 
+// Image
+bool can_open(const std::string& s)
+{
+    std::ifstream ff(s.c_str());
+    return ff.good();
+}
 
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
 
+Suffix::Encoding get_encoding(const std::string& s)
+{
+    struct SuffixMap
+    {
+        const char* extension;
+        Suffix::Encoding suffix;
+    };
+    // array of SuffixMap
+    static SuffixMap smap[] = {
+        {".jpg",  Suffix::jpg},
+        {".jpeg", Suffix::jpg},
+        {".gif",  Suffix::gif},
+    };
+    for(int i=0, n=ARRAY_SIZE(smap); i<n; i++){
+        int len = int(strlen(smap[i].extension));
+        if(s.length() >= len && s.substr(s.length()-len, len)==smap[i].extension)
+            return smap[i].suffix;
+    }
+    return Suffix::none;
+}
 
+// somewhat over-elaborate constructor
+// because errors related to image files can be such a pain to debug
+//cannot use F1_GIF_Image, Fl_JPEG_Image, fltk consists of 4 libraries: fltk, fltk_forms, fltk_gl and fltk_images. Maybe you miss some of those? set in linking
+Image::Image(Point xy, std::string s, Suffix::Encoding e)
+    :w(0), h(0), fn(xy, "")
+{
+    add(xy);
+    
+    if(!can_open(s)){
+        // cannot open s
+        fn.set_label("cannot open \"" + s + "\"");
+        p = new Bad_image(30, 20);  // display when has errors
+        return;
+    }
+    
+    if(e == Suffix::none) e = get_encoding(s);
+    switch(e){
+        case Suffix::jpg:
+            p = new Fl_JPEG_Image(s.c_str());
+            break;
+        case Suffix::gif:
+            p = new Fl_GIF_Image(s.c_str());
+            break;
+        default:
+            fn.set_label("unsupported fille type \"" + s + "\"");
+            p = new Bad_image(30, 20);
+    }
+}
 
-
+void Image::draw_lines() const
+{
+    if(fn.label() != "") fn.draw_lines();
+    if(w&&h)
+        p->draw(point(0).x, point(0).y, w, h, cx, cy);
+    else
+        p->draw(point(0).x, point(0).y);
+}
 
 }

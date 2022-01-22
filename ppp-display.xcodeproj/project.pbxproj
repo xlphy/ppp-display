@@ -33,6 +33,8 @@
 		2207D4F127947FE000AD3A75 /* GUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GUI.hpp; sourceTree = "<group>"; };
 		2207D4F32794C4A500AD3A75 /* Simple_window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Simple_window.cpp; sourceTree = "<group>"; };
 		2207D4F42794C4A500AD3A75 /* Simple_window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Simple_window.hpp; sourceTree = "<group>"; };
+		2207D510279BADC700AD3A75 /* done.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = done.jpg; sourceTree = "<group>"; };
+		2207D511279BADC700AD3A75 /* view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = view.jpg; sourceTree = "<group>"; };
 		2268C5792791C6BD00370682 /* ppp-display */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ppp-display"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2268C57C2791C6BD00370682 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2268C5832791D78800370682 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -52,6 +54,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2207D50F279BADC700AD3A75 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				2207D510279BADC700AD3A75 /* done.jpg */,
+				2207D511279BADC700AD3A75 /* view.jpg */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 		2268C5702791C6BD00370682 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +83,7 @@
 		2268C57B2791C6BD00370682 /* ppp-display */ = {
 			isa = PBXGroup;
 			children = (
+				2207D50F279BADC700AD3A75 /* data */,
 				2268C57C2791C6BD00370682 /* main.cpp */,
 				2268C5842791FFB400370682 /* Window.cpp */,
 				2268C5852791FFB400370682 /* Window.hpp */,
