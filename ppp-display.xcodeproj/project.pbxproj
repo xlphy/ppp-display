@@ -10,6 +10,7 @@
 		2207D4EF27947FCE00AD3A75 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D4ED27947FCE00AD3A75 /* Graph.cpp */; };
 		2207D4F227947FE000AD3A75 /* GUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D4F027947FE000AD3A75 /* GUI.cpp */; };
 		2207D4F52794C4A500AD3A75 /* Simple_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D4F32794C4A500AD3A75 /* Simple_window.cpp */; };
+		2207D51D27A0B98800AD3A75 /* Move_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207D51B27A0B98800AD3A75 /* Move_window.cpp */; };
 		2268C57D2791C6BD00370682 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2268C57C2791C6BD00370682 /* main.cpp */; };
 		2268C5862791FFB400370682 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2268C5842791FFB400370682 /* Window.cpp */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,8 @@
 		2207D4F42794C4A500AD3A75 /* Simple_window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Simple_window.hpp; sourceTree = "<group>"; };
 		2207D510279BADC700AD3A75 /* done.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = done.jpg; sourceTree = "<group>"; };
 		2207D511279BADC700AD3A75 /* view.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = view.jpg; sourceTree = "<group>"; };
+		2207D51B27A0B98800AD3A75 /* Move_window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Move_window.cpp; sourceTree = "<group>"; };
+		2207D51C27A0B98800AD3A75 /* Move_window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Move_window.hpp; sourceTree = "<group>"; };
 		2268C5792791C6BD00370682 /* ppp-display */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ppp-display"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2268C57C2791C6BD00370682 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2268C5832791D78800370682 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				2207D4F127947FE000AD3A75 /* GUI.hpp */,
 				2207D4F32794C4A500AD3A75 /* Simple_window.cpp */,
 				2207D4F42794C4A500AD3A75 /* Simple_window.hpp */,
+				2207D51B27A0B98800AD3A75 /* Move_window.cpp */,
+				2207D51C27A0B98800AD3A75 /* Move_window.hpp */,
 			);
 			path = "ppp-display";
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 				2268C57D2791C6BD00370682 /* main.cpp in Sources */,
 				2207D4F227947FE000AD3A75 /* GUI.cpp in Sources */,
 				2207D4EF27947FCE00AD3A75 /* Graph.cpp in Sources */,
+				2207D51D27A0B98800AD3A75 /* Move_window.cpp in Sources */,
 				2268C5862791FFB400370682 /* Window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

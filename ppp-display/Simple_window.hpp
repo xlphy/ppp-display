@@ -20,7 +20,7 @@ private:
     Graph_lib::Button next_button;  // the "next" button
     bool button_pushed;
     
-    static void cb_next(Graph_lib::Address, Graph_lib::Address); // callback for next_button
+    //static void cb_next(Graph_lib::Address, Graph_lib::Address); // callback for next_button
     
     void next();    // action to be done when next_button is pressed
 };

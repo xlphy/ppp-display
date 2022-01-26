@@ -8,9 +8,10 @@
 #include <iostream>
 #include "Simple_window.hpp"
 #include "Graph.hpp"
+#include "Move_window.hpp"
 
-int main(int argc, const char * argv[]) {
-    // use your simple wrapper
+// test building blocks of graph objects, the concrete classes of Shape
+void test_graphs(){
     using namespace Graph_lib;
     
     Point top_left{100, 100};
@@ -120,6 +121,39 @@ int main(int argc, const char * argv[]) {
     Image img1 {Point{orig.x + 20, orig.y + 50}, img_dir + "done.jpg"};
     win2.attach(img1);
     win2.wait_for_button();
+    
+}
+
+
+int main(int argc, const char * argv[]) {
+    using namespace Graph_lib;
+    
+    Point top_left{100, 100};
+    Simple_window win{top_left, 600, 400, "Canvas"};
+    Point center = Point(win.x_max()/2, win.y_max()/2);
+    
+    Button b({center.x - 70/2, center.y - 20/2}, 70, 20, "Button", 0);
+    win.attach(b);
+    win.wait_for_button();
+    
+    b.hide();
+    win.wait_for_button();
+    
+    b.move(50, 50);
+    b.show();
+    win.wait_for_button();
+    
+    // move
+    b.show();
+    b.move(-50, -50);
+    win.wait_for_button();
+    
+    //Move_window mwin{400, 500, "move"};
+    //gui_main();
+    
+    // TODO: In_box, Out_box, Menu
+    
+    
     
     return 0;
 }
