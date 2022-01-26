@@ -151,7 +151,14 @@ int main(int argc, const char * argv[]) {
     //Move_window mwin{400, 500, "move"};
     //gui_main();
     
-    // TODO: In_box, Out_box, Menu
+    // In_box, Out_box, Menu
+    int width = 200, height = 20;
+    In_box inbox({center.x - width/2, center.y - 100 - height/2}, width, height, "In Box");
+    Out_box outbox({center.x - width/2, center.y - height/2}, width, height, "Out Box");
+    
+    win.attach(inbox);
+    win.attach(outbox);
+    win.wait_for_button();
     
     
     

@@ -83,15 +83,15 @@ struct Out_box: Widget{
 
 struct Menu: Widget{
     enum Kind {horizontal, vertical};
-    Menu(Point xy, int w, int h, Kind kk, const string& label);
+    Menu(Point xy, int w, int h, Kind kk, const string& label): Widget(xy, w, h, label, 0), k(kk), offset(0){}
     
     // data member
     Vector_ref<Button> selection;
     Kind k;
     int offset;
     // methods
-    int attach(Button& b);  // attach Button to Menu
-    int attach(Button* p);  // attach new Button to Menu
+    int attach(Button& b);  // attach Button to Menu; Menu does not delete &b
+    int attach(Button* p);  // attach new Button to Menu; Menu deletes p
     
     void show() override{ // show all buttons
         for (unsigned int i=0; i<selection.size(); ++i)
@@ -106,7 +106,10 @@ struct Menu: Widget{
             selection[i].move(dx, dy);
     }
     
-    void attach(Window& win) override;  // attach all buttons to win
+    void attach(Window& win) override{ // attach all buttons to win
+        for (unsigned int i=0; i<selection.size(); ++i)
+            win.attach(selection[i]);
+    }
     
 };
 

@@ -1,5 +1,5 @@
 # ppp-display
-Learning Programming Principles and Practice Using C++ (PPP), 2nd Ed, [amazon book](https://www.amazon.com/Programming-Principles-Practice-Using-2nd/dp/0321992784). Ch.12 - 16, basic concepts of graphics and GUI programming. 
+Learning Programming Principles and Practice Using C++ (PPP), 2nd Ed, [amazon book](https://www.amazon.com/Programming-Principles-Practice-Using-2nd/dp/0321992784). Ch.12 - 16, basic concepts of graphics and GUI programming. Support materials for the book [here](https://www.stroustrup.com/programming_support.html).
 
 ## FLTK setup in Xcode
 [FLTK](https://www.fltk.org), Fast Light Tool Kit, provides basic utilities to use operating system facilities to perform GUI and graphics programming.
