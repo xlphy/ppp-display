@@ -9,6 +9,7 @@
 #include "Simple_window.hpp"
 #include "Graph.hpp"
 #include "Move_window.hpp"
+#include "Lines_window.hpp"
 
 // test building blocks of graph objects, the concrete classes of Shape
 void test_graphs(){
@@ -160,6 +161,8 @@ int main(int argc, const char * argv[]) {
     win.attach(outbox);
     win.wait_for_button();
     
+    Lines_window lwin{Point{100, 100}, 600, 400, "lines"};
+    gui_main();
     
     
     return 0;
